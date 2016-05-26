@@ -1,0 +1,12 @@
+---
+:api_key: a2f6a6c68c22aad45af9a0ca72fb688d
+:password: 8c3c22bef434ec44b6a44e6fe3996096
+:store: yellowberry-dev.myshopify.com
+:theme_id: 
+:whitelist_files:
+- layout/
+- assets/
+- config/
+- snippets/
+- templates/
+- locales/

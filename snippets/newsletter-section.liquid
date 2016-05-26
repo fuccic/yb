@@ -1,0 +1,32 @@
+<section class="newsletter-section">
+  {% if settings.newsletter_form_action != blank %}
+    {% assign form_action = settings.newsletter_form_action %}
+  {% else %}
+    {% assign form_action = '#' %}
+  {% endif %}
+
+  <h2 class="newsletter-section__header">join the yellowberry movement</h2>
+
+  <div class="newsletter-section__body">
+    <div class="grid grid-uniform x-large-up--grid--table">
+      <div class="newsletter-section__form-wrapper grid__item x-large-up--three-tenths">
+        <label class="newsletter-section__label" for="newsletter-section-mail">keep up to date through our mailing list</label>
+      </div>
+
+      <div class="newsletter-section__form-wrapper grid__item x-large--one-half push--x-large--one-quarter x-large-up--four-tenths">
+        <form action="{{ form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="newsletter-section__form">
+            {% if settings.newsletter_form_hidden_input_name != blank and settings.newsletter_form_hidden_input_value != blank %}
+              <input type="hidden" name="{{ settings.newsletter_form_hidden_input_name }}" value="{{ settings.newsletter_form_hidden_input_value }}"/>
+            {% endif %}
+
+          <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="newsletter-section-mail" class="newsletter-section__input" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+          <input type="submit" class="newsletter-section__btn btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+        </form>
+      </div>
+
+      <div class="grid__item x-large-up--three-tenths">
+        {% include 'social-icons' %}
+      </div>
+    </div>
+  </div>
+</section>

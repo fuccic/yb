@@ -1,0 +1,73 @@
+<!-- /templates/collection.liquid -->
+
+{% paginate collection.products by settings.collections_items_number %}
+
+{% include 'breadcrumb' %}
+
+{% if collection.image %}
+  <img class="hero-img" sizes="(max-width: 1200px) 100vw, 1140px" srcset="{{ collection.image.src | img_url: 'large' }} 480w, {{ collection.image.src | img_url: 'grande' }} 600w, {{ collection.image.src | img_url: 'master' }} 1440w">
+{% endif %}
+
+<div class="grid">
+  <div class="
+    grid__item
+
+    large--three-twelfths
+    x-large--three-twelfths
+    x-large-up--three-twelfths
+  ">
+    {% include 'collection-sidebar' %}
+  </div>
+
+  <div class="
+    collection-list
+    grid__item
+
+    large--nine-twelfths
+    large--nine-twelfths
+    x-large--nine-twelfths
+    x-large-up--nine-twelfths
+  ">
+    <span id="products" class="collection-list__anchor"></span>
+
+    <div class="grid-uniform">
+
+      {% for product in collection.products %}
+
+        {% include 'product-grid-item' %}
+
+      {% else %}
+
+        {% if collection.handle == 'all' %}
+
+          {% unless emptyState %}
+            {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+            {% assign emptyState = true %}
+          {% endunless %}
+          {% include 'onboarding-empty-collection' %}
+
+        {% else %}
+
+          <div class="grid__item">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+
+        {% endif %}
+
+      {% endfor %}
+
+      
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <hr>
+      <div class="pagination">
+        {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endpaginate %}

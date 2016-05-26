@@ -1,0 +1,145 @@
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+{{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+
+<script>
+  var selectCallback = function(variant, selector) {
+    timber.productPage({
+      money_format: "{{ shop.money_format }}",
+      variant: variant,
+      selector: selector
+    });
+  };
+
+  jQuery(function ($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+    selectCallback;
+
+    var shortenSizeString = function (sizeStr) {
+      sizeStrArr = $.trim(sizeStr).split(' ');
+      return sizeStrArr[0];
+    };
+
+    function featuredImageZoom() {
+
+      var featuredImage = $('#ProductPhoto');
+
+      featuredImage.zoom({
+        magnify: 2
+      });
+
+      $('.product-single__thumbnails__img').on('click', function(){
+        featuredImage.trigger('zoom.destroy');
+        setTimeout(function(){ featuredImage.zoom({
+          magnify: 2
+        }); }, 300);
+      });
+    }
+
+    featuredImageZoom();
+
+    
+
+    var generateSizeRadiosMarkup = function ($select) {
+      var markup = '';
+      var defaultValue = $select.val();
+
+      markup += '<div class="product-single__size-selector__header">';
+      markup += ' <div class="product-single__size-selector__label">Select Size</div>';
+      {% if settings.product_page_size_chart_page %}
+        markup += ' <a href="#size-chart-lightbox" class="product-single__size-selector__link js-lightbox-open">{{ settings.product_page_size_chart_text }}</a>';
+      {% endif %}
+      markup += '</div>';
+
+      $select.children().each(function (index, option) {
+        var $option = $(option);
+        var value = $option.val();
+        var text = shortenSizeString( $option.text() );
+        var isSelected = defaultValue === value;
+        var isSelectedClass = isSelected ? 'is-selected' : '';
+        var checked = isSelected ? 'checked="true"' : '';
+
+        markup += '<label for="size-radio-' + value + '" class="product-single__size-selector__button ' + isSelectedClass + '">';
+        markup += ' ' + text;
+        markup += ' <input class="';
+        markup += '   product-single__size-selector__radio';
+        markup += '" type="radio" name="size-radio" id="size-radio-' + value + '" value="' + value + '" ' + checked + '>';
+        markup += '</label>';
+      });
+
+      return markup;
+    };
+
+    var addSizeRadios = function (index) {
+      var $selectorWrapper;
+
+      if (index) {
+        $selectorWrapper = $('.selector-wrapper').eq(index - 1);
+      } else {
+        $selectorWrapper = $('.selector-wrapper').eq(0);
+      }
+
+      var $select = $selectorWrapper.find('select');
+
+      $selectorWrapper.addClass('product-single__size-selector');
+      $selectorWrapper.prepend( generateSizeRadiosMarkup($select) );
+
+      var $labels = $selectorWrapper.find('label');
+
+      $selectorWrapper.off('.addSizeRadios').on('change.addSizeRadios', 'input:radio', function () {
+        var $radio = $(this);
+        var val = $radio.val();
+
+        $labels.removeClass('is-selected');
+        $radio.parent().addClass('is-selected');
+
+        $select.val(val).trigger('change');
+      });
+    };
+
+    var markRegularLabels = function () {
+      $selectorWrappers = $('.selector-wrapper');
+
+      $selectorWrappers.each(function(){
+
+
+        // If the select wrapper only contains a single option, let's hide it.
+        if($(this).find('option').length == 1) $(this).hide();
+        
+        $(this)
+          .find('label')
+          .not('.product-single__size-selector__button')
+          .addClass('product-single__regular-label');
+      });
+    };
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      {% if product.options.first == 'Size' or product.options.first == 'Select Size' %}
+        addSizeRadios();
+        markRegularLabels();
+      {% else %}
+        $selectorWrapper.prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+        markRegularLabels();
+      {% endif %}
+    {% else %}
+      {% for option in product.options %}
+          {% if option == 'Size' or option == 'Select Size' %}
+            addSizeRadios({{ forloop.index }});
+            markRegularLabels();
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    // console.log({{ product.options.size }});
+
+    // Hide selectors if we only have 1 variant and its title contains 'Default'.
+    {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+      $('.selector-wrapper').hide();
+    {% endif %}
+  });
+</script>

@@ -1,0 +1,31 @@
+{% if settings.instagram_feed_tag != blank and settings.instagram_feed_client_id != blank %}
+  {% assign is_instagram_section_tags = true %}
+{% endif %}
+
+{% if settings.instagram_feed_user_id != blank and settings.instagram_feed_access_token != blank %}
+  {% assign is_instagram_section_user = true %}
+{% endif %}
+
+{% if is_instagram_section_tags or is_instagram_section_user %}
+  <section class="instagram-section">
+    <h2 class="instagram-section__header">
+      <span class="instagram-section__header__inner">
+        <span class="instagram-section__header__icon social-icons__icon icon icon-instagram" aria-hidden="true"></span>
+        {{ settings.instagram_feed_title }}
+      </span>
+    </h2>
+
+    <ul
+      id="js-instagram-section-feed"
+      class="instagram-section__feed"
+      data-client-id="{{ settings.instagram_feed_client_id }}"
+      data-user-id="{{ settings.instagram_feed_user_id }}"
+      data-access-token="{{ settings.instagram_feed_access_token }}"
+      data-tag="{{ settings.instagram_feed_tag }}"
+    >
+      {% comment %}
+        Content inserted by JS.
+      {% endcomment %}
+    </ul>
+  </section>
+{% endif %}

@@ -1,0 +1,20 @@
+<div id="CartDrawer" class="drawer drawer--right">
+  <div class="drawer__close js-drawer-close">
+    <button type="button" class="icon-fallback-text">
+      <span class="icon icon-x" aria-hidden="true"></span>
+      <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
+    </button>
+  </div>
+
+  {% comment %}
+    The additional wrapper has been added to deal with weird Chrome bug
+    where the scroll bar has been moved to the left (covering
+    the content on scroll.)
+  {% endcomment %}
+  <div class="drawer__inner-wrapper">
+    <div class="drawer__inner">
+      <div class="h3">{{ 'cart.general.title' | t }}</div>
+      <div id="CartContainer"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<!-- /templates/page.contact.liquid -->
+{% comment %}
+
+  This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
+  Be sure to select page.contact as the template from the admin page to have this template take effect.
+
+  For information on adding more fields, visit:
+    - http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
+
+{% endcomment %}
+
+<div class="grid">
+
+  <div class="
+    grid__item
+
+    large--two-thirds
+    push--large--one-sixth
+
+    x-large--two-thirds
+    push--x-large--one-sixth
+
+    x-large-up--two-thirds
+    push--x-large-up--one-sixth
+  ">
+
+    <h1>{{ page.title }}</h1>
+
+    {% comment %}
+      Regular page content goes here.
+    {% endcomment %}
+    <div class="rte">
+      {{ page.content }}
+    </div>
+
+    {% comment %}
+      Contact form starts here
+    {% endcomment %}
+    <div class="form-vertical">
+      {% form 'contact' %}
+        <div class="grid">
+
+          <div class="grid__item">
+            {% comment %}
+              Successful message
+            {% endcomment %}
+            {% if form.posted_successfully? %}
+              <p class="note form-success">
+                {{ 'contact.form.post_success' | t }}
+              </p>
+            {% endif %}
+
+            {{ form.errors | default_errors }}
+          </div>
+
+          <div class="grid__item medium--one-half large--one-half x-large--one-half x-large-up--one-half">
+            {% assign name_attr = 'contact.form.first_name' | t | handle %}
+            <label for="ContactFormFirstName" class="hidden-label">{{ 'contact.form.first_name' | t }}</label>
+            <input type="text" id="ContactFormFirstName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.first_name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.first_name }}{% endif %}">
+          </div>
+
+          <div class="grid__item medium--one-half large--one-half x-large--one-half x-large-up--one-half">
+            {% assign name_attr = 'contact.form.last_name' | t | handle %}
+            <label for="ContactFormFirstName" class="hidden-label">{{ 'contact.form.last_name' | t }}</label>
+            <input type="text" id="ContactFormFirstName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.last_name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.last_name }}{% endif %}">
+          </div>
+
+
+          <div class="grid__item">
+            <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+            <input required type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+          </div>
+
+          <div class="grid__item large--two-thirds x-large--two-thirds x-large-up--two-thirds">
+            {% assign name_attr = 'contact.form.order_number' | t | handle %}
+            <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.order_number' | t }}</label>
+            <input type="tel" id="ContactFormPhone" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.order_number' | t }}" pattern="[0-9-]*" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.last_order.order_number }}{% endif %}">
+          </div>
+
+          <div class="grid__item">
+            <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
+            <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <div class="grid__item medium--one-third large--three-eighths  x-large--two-eighths x-large-up--two-eighths">
+            <input type="submit" class="btn btn--full" value="{{ 'contact.form.send' | t }}">
+          </div>
+        </div>
+      {% endform %}
+    </div>
+
+  </div>
+
+</div>

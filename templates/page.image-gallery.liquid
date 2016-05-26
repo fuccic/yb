@@ -1,0 +1,70 @@
+<!-- /templates/page.liquid -->
+
+{% include 'breadcrumb' %}
+
+<h3 style="text-align:center;padding: 10px 0px;">Berry Girl</h3>
+
+<div class="grid">
+
+  <div class="
+    grid__item
+
+    large--ten-twelfths
+    push--large--one-twelfth
+
+    x-large--two-thirds
+    push--x-large--one-sixth
+
+    x-large-up--two-thirds
+    push--x-large-up--one-sixth
+  ">
+
+    <ul class="square-gallery grid">
+        {% assign max_number = 9 %}
+
+        {% case settings.image_gallery_use_img_per_row  %}
+          {% when "3" %}
+            {% assign grid = "small--one-half medium--one-half large--one-third x-large--one-third x-large-up--one-third" %}
+          {% when "2" %}
+            {% assign grid = "small--one-half medium--one-half large--one-half x-large--one-half x-large-up--one-half" %}
+          {% when "1" %}
+            {% assign grid = "" %}
+        {% endcase %}
+
+
+        {% for index in (1..max_number) %}
+          {% capture is_thumb %}image_gallery_use_img_{{index}}_thumb{% endcapture %}
+          {% capture thumb_url %}image_gallery_img_{{index}}_thumb.jpg{% endcapture %}
+          {% capture is_img %}image_gallery_use_img_{{index}}{% endcapture %}
+          {% capture img_url %}image_gallery_img_{{index}}.jpg{% endcapture %}
+          {% capture caption %}image_gallery_img_{{index}}_caption{% endcapture %}
+          {% capture linkUrl %}image_gallery_img_{{index}}_link{% endcapture %}
+          {% assign js_gallery_trigger = "" %}
+
+
+          {% if settings[linkUrl] == blank %}
+            {% assign href = img_url | asset_url %}
+            {% assign js_gallery_trigger = "js-gallery-trigger" %}
+          {% else %}
+            {% assign href = settings[linkUrl] %}
+          {% endif %}
+
+          {% capture linkProps %}data-caption="{{ settings[caption] }}" href="{{ href }}" target="blank" class="{{ js_gallery_trigger }} square-gallery__link"{% endcapture %}
+
+          {% if settings[is_img] or settings[is_thumb] %}
+            <li class="square-gallery__item grid__item {{ grid }}">
+                {% if settings[is_thumb] %}
+                  <a {{linkProps}} style="background-image: url({{ thumb_url | asset_url }})">
+                    {{ thumb_url | asset_url | img_tag: settings[caption], 'square-gallery__img' }}
+                {% else %}
+                  <a {{linkProps}} style="background-image: url({{ img_url | asset_url }})">
+                    {{ img_url | asset_url | img_tag: settings[caption], 'square-gallery__img' }}
+                {% endif %}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+    </ul>
+  </div>
+
+</div>

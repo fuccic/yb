@@ -1,0 +1,22 @@
+{% unless settings.hero_section_hide %}
+  <section class="hero-tiles">
+    {% if settings.hero_section_use_background %}
+      <img src="{{ 'hero-section-background.jpg' | asset_url }}" alt="" class="hero-tiles__img">
+    {% else %}
+      <img src="{{ 'hero-tiles-default.jpg' | asset_url }}" alt="" class="hero-tiles__img">
+    {% endif %}
+
+    {% assign hero_section_links_handle = settings.hero_section_links %}
+    {% if linklists[hero_section_links_handle].links != blank %}
+      <ul class="hero-tiles__list">
+        {% for link in linklists[hero_section_links_handle].links limit:4 %}
+          <li class="hero-tiles__tile hero-tiles__tile--{{ forloop.index }}">
+            <a class="hero-tiles__link" href="{{ link.url }}">
+              <span class="hero-tiles__link__inner">{{ link.title }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+{% endunless %}

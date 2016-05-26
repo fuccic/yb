@@ -1,0 +1,1273 @@
+[
+  {
+    "name": "theme_info",
+    "logo": "https:\/\/cdn.shopify.com\/s\/files\/1\/0070\/7032\/files\/2010_6_23_Shopify-Green_256x256.jpg",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Yellowbery"
+      },
+      {
+        "type": "paragraph",
+        "content": "v2.1.0"
+      },
+      {
+        "type": "paragraph",
+        "content": "Theme based on [Timber](http:\/\/shopify.github.io\/Timber\/)."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Use class=\"color\" on a an input tag to bring up the color picker. Only a few colors have been included here as an example."
+      },
+      {
+        "type": "header",
+        "content": "General Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent Color",
+        "default": "#ffdf01"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Color",
+        "default": "#204a80"
+      },
+      {
+        "type": "color",
+        "id": "color_body_bg",
+        "label": "Body Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_borders",
+        "label": "Border Colors",
+        "default": "#e5e5e5"
+      },
+      {
+        "type": "header",
+        "content": "Body Text"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Body Text",
+        "default": "#333333"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_bg",
+        "label": "Footer Background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_mobile_footer_bg",
+        "label": "Mobile Footer Background",
+        "default": "#e1e1e1"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_text",
+        "label": "Footer Text",
+        "default": "#636363"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_social_link",
+        "label": "Social Icons",
+        "default": "#bbbbbb"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_use_image",
+        "label": "Use Custom Logo"
+      },
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom Logo",
+        "max-width": 450,
+        "max-height": 200,
+        "info": "Maximum logo dimensions are 450px wide by 200px high. The uploaded file will be resized to fit within those constraints."
+      },
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "checkbox",
+        "id": "favicon_enable",
+        "label": "Use custom icon?"
+      },
+      {
+        "type": "image",
+        "id": "favicon.png",
+        "label": "16px x 16px png",
+        "max-width": 16,
+        "max-height": 16
+      },
+      {
+        "type": "text",
+        "label": "Text in the top left",
+        "id": "header_text_top_left",
+        "default": "Free Shipping on all orders over $50"
+      },
+      {
+        "type": "text",
+        "label": "Text in the top center",
+        "id": "header_text_top_center",
+        "default": "Give $10 - Get $10"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Menu Section"
+      },
+      {
+        "type": "text",
+        "id": "footer_menu_header",
+        "label": "Menu Header",
+        "default": "Learn More"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu_link_list",
+        "label": "Menu Link List"
+      },
+      {
+        "type": "header",
+        "content": "Contact Section"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_header",
+        "label": "Header",
+        "default": "Reach Out to Us"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_email",
+        "label": "Email",
+        "default": "info@yellowberrycompany.com"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_address",
+        "label": "Address",
+        "default": "PO Box 2015, Wilson WY 83014"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_contact_text",
+        "label": "Contact Page Link Text",
+        "default": "Contact Us"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_contact_link",
+        "label": "Contact Page Link",
+        "default": "\/pages\/contact"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_feedback_text",
+        "label": "Feedback Page Link Text",
+        "default": "Provide Feedback"
+      },
+      {
+        "type": "text",
+        "id": "footer_contact_feedback_link",
+        "label": "Feedback Page Link",
+        "default": "\/pages\/feedback"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter Section"
+      },
+      {
+        "type": "text",
+        "id": "footer_newsletter_header",
+        "label": "Header",
+        "default": "See What We're Up To"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_newsletter",
+        "label": "Show newsletter form",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_social",
+        "label": "Show social icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Bottom Section"
+      },
+      {
+        "type": "text",
+        "id": "footer_bottom_text",
+        "label": "Text",
+        "default": "Copyright © _YEAR_ Yellowberry LLC",
+        "info": "_YEAR_ is replaced with a current year."
+      },
+      {
+        "type": "text",
+        "id": "footer_bottom_link",
+        "label": "Link URL",
+        "default": "\/"
+      }
+    ]
+  },
+  {
+    "name": "Hero Tiles",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background Image"
+      },
+      {
+        "type": "checkbox",
+        "id": "hero_section_hide",
+        "label": "Hide Section"
+      },
+      {
+        "type": "checkbox",
+        "id": "hero_section_use_background",
+        "label": "Use Custom Background"
+      },
+      {
+        "type": "image",
+        "id": "hero-section-background.jpg",
+        "label": "Background Image",
+        "max-width": 1440,
+        "max-height": 666,
+        "info": "Maximum background dimensions are 1440px wide by 666px high. The uploaded file will be resized to fit within those constraints."
+      },
+      {
+        "type": "color",
+        "id": "hero_section_text_color",
+        "label": "Text Color",
+        "default": "#7b7b7b"
+      },
+      {
+        "type": "color",
+        "id": "hero_section_background_color",
+        "label": "Default Background Color",
+        "default": "#FFDF01",
+        "info": "The colour is shown before the image background has loaded."
+      },
+      {
+        "type": "select",
+        "id": "hero_section_transition_speed",
+        "label": "Transition Speed",
+        "default": ".5s",
+        "options": [
+          {
+            "value": ".2s",
+            "label": "Fast"
+          },
+          {
+            "value": ".5s",
+            "label": "Normal"
+          },
+          {
+            "value": "1s",
+            "label": "Slow"
+          }
+        ],
+        "info": "Specify how fast should tiles fade in\/out."
+      },
+      {
+        "type": "header",
+        "content": "Links"
+      },
+      {
+        "type": "link_list",
+        "id": "hero_section_links",
+        "label": "Connected Navigation",
+        "info": "Assign one of the link lists. It'll be used to render links (tiles). Please note that only the first 4 links will be visible."
+      }
+    ]
+  },
+  {
+    "name": "CTA Box",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cta_box_hide",
+        "label": "Hide Section"
+      },
+      {
+        "type": "header",
+        "content": "Box 1"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_use_bg_1",
+        "label": "Use Custom Background"
+      },
+      {
+        "type": "image",
+        "id": "cta_box_bg_1.jpg",
+        "label": "Custom Background",
+        "max-width": 570,
+        "max-height": 365
+      },
+      {
+        "type": "text",
+        "id": "cta_box_header_1",
+        "label": "Header"
+      },
+      {
+        "type": "textarea",
+        "id": "cta_box_text_1",
+        "label": "Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_text_1",
+        "label": "Button Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_url_1",
+        "placeholder": "e.g., \/pages\/our-story",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_center_1",
+        "label": "Center Content"
+      },
+      {
+        "type": "header",
+        "content": "Box 2"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_use_bg_2",
+        "label": "Use Custom Background"
+      },
+      {
+        "type": "image",
+        "id": "cta_box_bg_2.jpg",
+        "label": "Custom Background",
+        "max-width": 570,
+        "max-height": 365
+      },
+      {
+        "type": "text",
+        "id": "cta_box_header_2",
+        "label": "Header"
+      },
+      {
+        "type": "textarea",
+        "id": "cta_box_text_2",
+        "label": "Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_text_2",
+        "label": "Button Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_url_2",
+        "placeholder": "e.g., \/pages\/our-story",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_center_2",
+        "label": "Center Content"
+      },
+      {
+        "type": "header",
+        "content": "Box 3"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_use_bg_3",
+        "label": "Use Custom Background"
+      },
+      {
+        "type": "image",
+        "id": "cta_box_bg_3.jpg",
+        "label": "Custom Background",
+        "max-width": 570,
+        "max-height": 365
+      },
+      {
+        "type": "text",
+        "id": "cta_box_header_3",
+        "label": "Header"
+      },
+      {
+        "type": "textarea",
+        "id": "cta_box_text_3",
+        "label": "Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_text_3",
+        "label": "Button Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_url_3",
+        "placeholder": "e.g., \/pages\/our-story",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_center_3",
+        "label": "Center Content"
+      },
+      {
+        "type": "header",
+        "content": "Box 4"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_use_bg_4",
+        "label": "Use Custom Background"
+      },
+      {
+        "type": "image",
+        "id": "cta_box_bg_4.jpg",
+        "label": "Custom Background",
+        "max-width": 570,
+        "max-height": 365
+      },
+      {
+        "type": "text",
+        "id": "cta_box_header_4",
+        "label": "Header"
+      },
+      {
+        "type": "textarea",
+        "id": "cta_box_text_4",
+        "label": "Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_text_4",
+        "label": "Button Text"
+      },
+      {
+        "type": "text",
+        "id": "cta_box_button_url_4",
+        "placeholder": "e.g., \/pages\/our-story",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cta_box_center_4",
+        "label": "Center Content"
+      }
+    ]
+  },
+  {
+    "name": "Instagram Feed",
+    "settings": [
+      {
+        "type": "text",
+        "id": "instagram_feed_title",
+        "label": "Title",
+        "default": "Yellowberry",
+        "info": "Used in the section's header (next to the Instagram icon)."
+      },
+      {
+        "type": "text",
+        "id": "instagram_feed_user_id",
+        "label": "User ID",
+        "info": "Specifies user account you want to use."
+      },
+      {
+        "type": "text",
+        "id": "instagram_feed_access_token",
+        "label": "Access Token",
+        "info": "It's required if you want to use specific user account. If User ID and Access Token are provided, they take priority over Client ID and Hashtag – pictures from the specified user account will be displayed."
+      },
+      {
+        "type": "text",
+        "id": "instagram_feed_client_id",
+        "label": "Client ID",
+        "info": "[You can get it from here.](http:\/\/instagram.com\/developer\/register\/) It's a required if you want to pull pictures by tag sepcified in the field below (\"Hashtag\")."
+      },
+      {
+        "type": "text",
+        "id": "instagram_feed_tag",
+        "label": "Hashtag",
+        "placeholder": "e.g., myhashtag",
+        "info": "It works only if Client ID has been provided AND User ID and Access Token are absent. User ID + Access Token will pull photos directly from an user account."
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "newsletter_form_action",
+        "label": "Newsletter Form Action URL"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_form_hidden_input_name",
+        "label": "Hidden Input Name"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_form_hidden_input_value",
+        "label": "Hidden Input Value"
+      }
+    ]
+  },
+  {
+    "name": "Product Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Size Chart Popup"
+      },
+      {
+        "type": "text",
+        "id": "product_page_size_chart_text",
+        "label": "Text",
+        "default": "Size Chart"
+      },
+      {
+        "type": "page",
+        "id": "product_page_size_chart_page",
+        "label": "Size Chart Page"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_page_size_chart_page_title",
+        "label": "Show Page Title"
+      },
+      {
+        "type": "header",
+        "content": "Privacy Policy Popup"
+      },
+      {
+        "type": "text",
+        "id": "product_page_policies_text",
+        "label": "Text",
+        "default": "View Shipping & Return Policies"
+      },
+      {
+        "type": "page",
+        "id": "product_page_policies_page",
+        "label": "Privacy Policy Page"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_page_policies_page_title",
+        "label": "Show Page Title"
+      },
+      {
+        "type": "header",
+        "content": "FAQs Popup"
+      },
+      {
+        "type": "text",
+        "id": "product_page_faq_text",
+        "label": "Text",
+        "default": "View Order FAQs"
+      },
+      {
+        "type": "page",
+        "id": "product_page_faq_page",
+        "label": "FAQs Page"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_page_faq_page_title",
+        "label": "Show Page Title"
+      }
+    ]
+  },
+  {
+    "name": "Shop Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "shop_page_product_types",
+        "label": "Enable product types drop down"
+      }
+    ]
+  },
+  {
+    "name": "Press Page",
+    "settings": [
+      {
+        "type": "blog",
+        "id": "press_page_blog",
+        "label": "Press Blog",
+        "info": "Each post should contain a picture with a link."
+      },
+      {
+        "type": "checkbox",
+        "id": "press_page_target_blank_links",
+        "label": "Open all the links in a new tab."
+      }
+    ]
+  },
+  {
+    "name": "Cart Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Allow notes with orders"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_gift_note_enable",
+        "label": "Show gift note option"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_vendor_enable",
+        "label": "Show product vendor"
+      }
+    ]
+  },
+  {
+    "name": "Image Gallery",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Images per row"
+      },
+      {
+        "type": "select",
+        "id": "image_gallery_use_img_per_row",
+        "label": "Pick a number",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 image"
+          },
+          {
+            "value": "2",
+            "label": "2 images"
+          },
+          {
+            "value": "3",
+            "label": "3 images"
+          }
+        ],
+        "default": "3"
+      },
+      {
+        "type": "header",
+        "content": "Information",
+        "info": "If you type an URL into \"Link\" field, clicking on thumbnail will redirect to it instead of opening the lightbox."
+      },
+      {
+        "type": "header",
+        "content": "Image 1"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_1_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_1_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_1",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_1.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_1_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_1_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 2"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_2_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_2_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_2",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_2.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_2_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_2_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 3"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_3_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_3_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_3",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_3.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_3_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_3_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 4"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_4_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_4_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_4",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_4.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_4_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_4_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 5"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_5_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_5_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_5",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_5.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_5_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_5_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 6"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_6_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_6_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_6",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_6.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_6_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_6_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 7"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_7_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_7_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_7",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_7.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_7_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_7_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 8"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_8_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_8_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_8",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_8.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_8_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_8_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      },
+      {
+        "type": "header",
+        "content": "Image 9"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_9_thumb",
+        "label": "Use Thumbnail"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_9_thumb.jpg",
+        "max-width": 320,
+        "max-height": 320,
+        "label": "Thumbnail"
+      },
+      {
+        "type": "checkbox",
+        "id": "image_gallery_use_img_9",
+        "label": "Use Image"
+      },
+      {
+        "type": "image",
+        "id": "image_gallery_img_9.jpg",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_9_caption",
+        "label": "Caption"
+      },
+      {
+        "type": "text",
+        "id": "image_gallery_img_9_link",
+        "label": "Link",
+        "placeholder": "http:\/\/some.address.com"
+      }
+    ]
+  },
+  {
+    "name": "Collections",
+    "settings": [
+      {
+        "type": "select",
+        "id": "collections_items_number",
+        "label": "Items per Page",
+        "options": [
+          {
+            "value": "6",
+            "label": "6 items"
+          },
+          {
+            "value": "12",
+            "label": "12 items"
+          },
+          {
+            "value": "24",
+            "label": "24 items"
+          },
+          {
+            "value": "50",
+            "label": "50 items"
+          }
+        ],
+        "default": "12"
+      }
+    ]
+  },
+  {
+    "name": "Social Sharing",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Twitter Handle",
+        "info": "Used in the <head> of the page."
+      },
+      {
+        "type": "text",
+        "id": "twittercard_handle",
+        "label": "Twitter Handle",
+        "default": "@"
+      },
+      {
+        "type": "header",
+        "content": "Social Icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_open_new_window",
+        "label": "Open in new window"
+      },
+      {
+        "type": "text",
+        "id": "social_sharing_facebook_url",
+        "label": "Facebook Url",
+        "placeholder": "https:\/\/www.facebook.com\/username",
+        "default": "https:\/\/www.facebook.com\/pages\/Yellowberry\/557685267602446"
+      },
+      {
+        "type": "text",
+        "id": "social_sharing_pinterest_url",
+        "label": "Pinterest Url",
+        "placeholder": "https:\/\/www.pinterest.com\/username",
+        "default": "https:\/\/www.pinterest.com\/yellowberryco\/"
+      },
+      {
+        "type": "text",
+        "id": "social_sharing_instagram_url",
+        "label": "Instagram Url",
+        "placeholder": "https:\/\/instagram.com\/username"
+      },
+      {
+        "type": "text",
+        "id": "social_sharing_twitter_url",
+        "label": "Twitter Url",
+        "placeholder": "https:\/\/twitter.com\/username"
+      }
+    ]
+  },
+  {
+    "name": "Drawers",
+    "settings": [
+      {
+        "type": "color",
+        "id": "drawers_background_color",
+        "label": "Background Color",
+        "default": "#999999"
+      },
+      {
+        "type": "color",
+        "id": "drawers_text_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "drawers_close_background_color",
+        "label": "Close Button Background Color",
+        "default": "#7e7e7e"
+      },
+      {
+        "type": "select",
+        "id": "drawers_transition_speed",
+        "label": "Transition Speed",
+        "default": ".4s",
+        "options": [
+          {
+            "value": ".2s",
+            "label": "Fast"
+          },
+          {
+            "value": ".4s",
+            "label": "Normal"
+          },
+          {
+            "value": "1s",
+            "label": "Slow"
+          }
+        ],
+        "info": "Specify how fast a drawer should slide in\/out."
+      }
+    ]
+  },
+  {
+    "name": "Mailchimp Popup",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "To test this feature, set the number of days until the popup is displayed again to 0."
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_popup",
+        "label": "Popup Enabled?"
+      },
+      {
+        "type": "text",
+        "id": "mailchimp_form_action",
+        "label": "Newsletter Form Action URL"
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_popup_form",
+        "label": "Display Newsletter Form?",
+        "default": true
+      },
+      {
+        "type": "page",
+        "id": "newsletter_popup_page",
+        "label": "Popup Content Page"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_popup_seconds",
+        "label": "Seconds until Popup is Displayed",
+        "default": "2",
+        "info": "seconds"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_popup_days",
+        "label": "Days until Popup is Displayed Again",
+        "default": "30",
+        "info": "days"
+      }
+    ]
+  },
+  {
+    "name": "Lightboxes",
+    "settings": [
+      {
+        "type": "color",
+        "id": "lightboxes_overlay_color",
+        "label": "Overlay Color",
+        "default": "#000000"
+      },
+      {
+        "type": "select",
+        "id": "lightboxes_overlay_opacity",
+        "label": "Overlay Opacity",
+        "default": ".8",
+        "options": [
+          {
+            "value": ".1",
+            "label": "0.1"
+          },
+          {
+            "value": ".2",
+            "label": "0.2"
+          },
+          {
+            "value": ".3",
+            "label": "0.3"
+          },
+          {
+            "value": ".4",
+            "label": "0.4"
+          },
+          {
+            "value": ".5",
+            "label": "0.5"
+          },
+          {
+            "value": ".6",
+            "label": "0.6"
+          },
+          {
+            "value": ".7",
+            "label": "0.7"
+          },
+          {
+            "value": ".8",
+            "label": "0.8"
+          },
+          {
+            "value": ".9",
+            "label": "0.9"
+          },
+          {
+            "value": "1",
+            "label": "1.0"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "lightboxes_close_background_color",
+        "label": "Close Button Background Color",
+        "default": "#7e7e7e"
+      },
+      {
+        "type": "color",
+        "id": "lightboxes_close_text_color",
+        "label": "Close Button Text Color",
+        "default": "#ffffff"
+      }
+    ]
+  }
+]

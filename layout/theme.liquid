@@ -1,0 +1,467 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+  {% include 'friendbuy' %}
+
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  {% if settings.favicon_enable %}
+    <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+
+  <!-- Title and description ================================================== -->
+  <title>
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Helpers ================================================== -->
+  {% include 'social-meta-tags' %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+
+  <!-- CSS ================================================== -->
+  {{ 'main.scss.css' | asset_url | stylesheet_tag }}
+
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+  {% include 'oldIE-js' %}
+
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+  {{ 'modernizr.min.js' | asset_url | script_tag }}
+  {{ 'picturefill.min.js' | asset_url | script_tag }}
+  {{ '//cdn.optimizely.com/js/3528771611.js' | script_tag }}
+
+  {% comment %}
+    If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  {% if handle contains 'welcome-to-yellowberry' %}
+    <meta name="robots" content="noindex">
+  {% endif %}
+
+  {% include 'iwish' with 'iwishhead' %}
+  
+  <!-- Yotpo ================================================== -->
+<script type="text/javascript">
+(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/kXMZd1jtB1Bh37gJpH1PZFqMNYE5rLzOb4XwqEbd/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
+</script>
+  
+{{ 'sca.freegift.css' | asset_url | stylesheet_tag }}
+  
+<!-- head -->
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '168464743501805');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=168464743501805&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+</head>
+
+{% comment %}
+  Add the page template as a class for easy page or template specific styling.
+{% endcomment %}
+<body id="{{ page_title | handle }}" class="{% if cart.item_count > 0 %}is-product-in-cart {% endif %}{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+  {% include 'nav-drawer' %}
+
+  {% include 'cart-drawer' %}
+
+  <div id="PageContainer">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="grid medium-down--hide">
+          <span class="grid__item large--hide x-large--one-third x-large-up--one-third site-header__top-text">{{ settings.header_text_top_left }}</span>
+          <span class="grid__item large--hide x-large--one-third x-large-up--one-third site-header__top-text site-header__top-text--center">{{ settings.header_text_top_center }}</span>
+
+          <div class="grid__item x-large--one-third x-large-up--one-third">
+            <ul class="user-list">
+              {% comment %}
+                If customer accounts are enabled, provide login and create account links
+              {% endcomment %}
+              {% if shop.customer_accounts_enabled %}
+                {% if customer %}
+                  <li class="user-list__item">
+                  {% if customer.first_name != blank %}
+                    {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                    {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+                  {% else %}
+                    <a href="/account">{{ 'layout.customer.account' | t }}</a>
+                  {% endif %}
+                  </li>
+
+                  <li class="user-list__item">
+                    {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                  </li>
+                {% else %}
+                  <li class="user-list__item">
+                    {{ 'layout.customer.log_in' | t | customer_login_link }}
+                  </li>
+                  {% if shop.customer_accounts_optional %}
+                    <li class="user-list__item">
+                      {{ 'layout.customer.create_account' | t | customer_register_link }}
+                    </li>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+
+              {% comment %}
+                Show number of items in the cart and total cost in the /cart link
+              Ajax Cart Notes:
+                - #cartCount updates the total number of items in the cart
+                - #cartCost updates the total cost of the cart
+                - Documentation:  http://shopify.com/timber#ajax-cart
+              {% endcomment %}
+              <li class="user-list__item user-list__item--cart">
+                <a href="/cart" class="js-drawer-open-right" data-target="CartDrawer" aria-controls="CartDrawer" aria-expanded="false">
+                  <span class="user-list__present-icon"></span>
+                  <span id="CartCount">{{ cart.item_count }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {% comment %}
+          Use the uploaded logo from theme settings if enabled.
+          Site name gets precedence with H1 tag on homepage, div on other pages.
+        {% endcomment %}
+        {% if template == 'index' %}
+          <h1 class="site-header__logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if settings.logo_use_image %}
+            <a href="/" itemprop="url" class="site-header__logo-link">
+              <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+            </a>
+          {% else %}
+            <a href="/" itemprop="url" class="site-header__logo-link">
+              <img src="{{ 'logo-default.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+            </a>
+          {% endif %}
+        {% if template == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+
+        <div class="site-header__mobile-nav-trigger">
+          <button type="button" class="icon-fallback-text site-header__mobile-nav-trigger__btn js-drawer-open-right" data-target="NavDrawer" aria-controls="NavDrawer" aria-expanded="false">
+            <span class="site-header__mobile-nav-trigger__icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="fallback-text">{{ 'layout.navigation.menu' | t }}</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="wrapper">
+      <div class="medium-down--hide">
+        {% comment %}
+          List out your main-menu linklist (default)
+
+          More info on linklists:
+            - http://docs.shopify.com/themes/liquid-variables/linklists
+        {% endcomment %}
+        <!-- begin site-nav -->
+        <ul class="site-nav" id="AccessibleNav">
+          {% for link in linklists.main-menu.links %}
+            {% comment %}
+              Create a dropdown menu by naming a linklist the same as a link in the parent nav
+
+              More info on dropdowns:
+                - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+            {% endcomment %}
+            {% assign child_list_handle = link.title | handleize %}
+            {% if child_list_handle == 'shop' and settings.shop_page_product_types %}
+              <li class="site-nav__item site-nav__item--has-dropdown{% if link.active %} site-nav__item--active{% endif %}" aria-haspopup="true">
+                <a href="{{ link.url }}" class="site-nav__link">
+                  Shop
+                </a>
+                <ul class="site-nav__dropdown">
+                  {% for product_type in shop.types %}
+                    <li class="site-nav__item-dropdown">
+                      <a href="/collections/shop/cf-type-{{ product_type | handleize }}" class="site-nav__link-dropdown">{{ product_type }}</a>
+                    </li>
+                  {% endfor %}
+
+                  {% if linklists[child_list_handle].links != blank %}
+                    {% for childlink in linklists[child_list_handle].links %}
+                      <li class="site-nav__item-dropdown">
+                        <a href="{{ childlink.url }}" class="site-nav__link-dropdown{% if childlink.active %} site-nav__link-dropdown--active{% endif %}">{{ childlink.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+              </li>
+            {% elsif linklists[child_list_handle].links != blank %}
+              <li class="site-nav__item site-nav__item--has-dropdown{% if link.active %} site-nav__item--active{% endif %}" aria-haspopup="true">
+                <a href="{{ link.url }}" class="site-nav__link">
+                  {{ link.title }}
+                </a>
+                <ul class="site-nav__dropdown">
+                  {% for childlink in linklists[child_list_handle].links %}
+                    <li class="site-nav__item-dropdown">
+                      <a href="{{ childlink.url }}" class="site-nav__link-dropdown{% if childlink.active %} site-nav__link-dropdown--active{% endif %}">{{ childlink.title | escape }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% else %}
+              <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+                <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if customer %}
+            <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+              {% include 'iwish' with 'iwishlink', iwish_class: 'site-nav__link' %}
+            </li>
+          {% endif %}
+
+          <li class="site-nav__search">
+            <form action="/search" method="get" class="site-nav__search__form" role="search">
+              {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+              <input class="site-nav__search__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
+              <button type="submit" class="site-nav__search__button icon-fallback-text">
+                <span class="icon icon-search" aria-hidden="true"></span>
+                <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
+              </button>
+            </form>
+          </li>
+        </ul>
+        <!-- //site-nav -->
+      </div>
+    </nav>
+
+    <main class="{%if template != 'product'%}wrapper {% endif %}main-content" role="main">
+      {{ content_for_layout }}
+    </main>
+
+
+    <div class="buy-now-bar">
+      <div class="buy-now-bar__inner">
+        <div class="wrapper">
+          <a href="/cart" class="buy-now-bar__btn js-drawer-open-right" data-target="CartDrawer" aria-controls="CartDrawer" aria-expanded="false">
+            <span class="grid grid--table">
+              <span class="buy-now-bar__text grid__item two-fifths">Buy now</span>
+
+              <span class="grid__item one-fifth">
+                <span class="buy-now-bar__icon-wrapper icon-fallback-text">
+                  <span class="icon icon-cart" aria-hidden="true"></span>
+                  <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                </span>
+              </span>
+
+              <span class="buy-now-bar__text grid__item two-fifths js-cart-cost">{{ cart.total_price | money }}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- begin site-footer -->
+    <footer class="site-footer medium-down--text-center" role="contentinfo">
+      <div class="wrapper">
+        <div class="grid">
+          <div class="grid__item medium-down--hide large--hide x-large--one-twelfth x-large-up--one-twelfth"></div>
+
+          <div class="site-footer__section grid__item medium-down--hide medium--one-half large--one-third x-large--two-twelfths x-large-up--two-twelfths">
+            <h3 class="site-footer__header">{{ settings.footer_menu_header }}</h3>
+
+            <ul class="site-footer__list">
+              {% for link in linklists[settings.footer_menu_link_list].links %}
+                <li class="site-footer__list__item"><a class="site-footer__list__link" href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="medium-down--hide large--hide grid__item x-large--one-twelfth x-large-up--one-twelfth"></div>
+
+          <div itemscope itemtype="http://schema.org/Organization" class="site-footer__section grid__item medium-down--hide medium--one-half large--one-third x-large--three-twelfths x-large-up--three-twelfths">
+            <h3 class="site-footer__header">{{ settings.footer_contact_header }}</h3>
+            <div class="hide" itemprop="name">{{ shop.name }}</div>
+            <p class="site-footer__paragraph"><a href="mailto:{{ settings.footer_contact_email }}" itemprop="email">{{ settings.footer_contact_email }}</a></p>
+            <p class="site-footer__paragraph" itemprop="address">{{ settings.footer_contact_address }}</p>
+            <p class="site-footer__paragraph"><a href="{{ settings.footer_contact_contact_link }}">{{ settings.footer_contact_contact_text }}</a></p>
+            <p class="site-footer__paragraph"><a href="{{ settings.footer_contact_feedback_link }}">{{ settings.footer_contact_feedback_text }}</a></p>
+          </div>
+
+          <div class="medium-down--hide large--hide grid__item x-large--one-twelfth x-large-up--one-twelfth"></div>
+
+          <div class="site-footer__section grid__item medium--one-whole large--one-third x-large--four-twelfths x-large-up--four-twelfths">
+            <h3 class="site-footer__header medium-down--hide">{{ settings.footer_newsletter_header }}</h3>
+            {% if settings.newsletter_form_action != blank %}
+              {% assign form_action = settings.newsletter_form_action %}
+            {% else %}
+              {% assign form_action = '#' %}
+            {% endif %}
+            {% if settings.footer_newsletter_newsletter %}
+              <form action="{{ form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="site-footer__newsletter-form input-group">
+                {% if settings.newsletter_form_hidden_input_name != blank and settings.newsletter_form_hidden_input_value != blank %}
+                  <input type="hidden" name="{{ settings.newsletter_form_hidden_input_name }}" value="{{ settings.newsletter_form_hidden_input_value }}"/>
+                {% endif %}
+
+                <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                <span class="input-group-btn">
+                  <input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+                </span>
+              </form>
+            {% endif %}
+
+            {% if settings.footer_newsletter_social %}
+              {% include 'social-icons' %}
+            {% endif %}
+          </div>
+        </div>
+
+        {% assign current_year = 'now' | date: "%Y" %}
+        {% assign footer_info_text = settings.footer_bottom_text | replace: "_YEAR_", current_year %}
+        <small class="site-footer__info-text"><a href="{{ settings.footer_bottom_link }}">{{ footer_info_text }}</a></small>
+
+          {% comment %}
+
+          {% if settings.footer_social_enable %}
+            <div class="grid__item large--one-third medium--one-half">
+              <h3>{{ 'layout.footer.social_title' | t }}</h3>
+                <ul class="inline-list social-icons">
+                  {% if settings.social_twitter_link != blank %}
+                    <li>
+                      <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+                        <span class="icon icon-twitter" aria-hidden="true"></span>
+                        <span class="fallback-text">Twitter</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if settings.social_facebook_link != blank %}
+                    <li>
+                      <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+                        <span class="icon icon-facebook" aria-hidden="true"></span>
+                        <span class="fallback-text">Facebook</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+            </div>
+          {% endif %}
+          <div class="grid__item text-center">
+            <hr>
+            {% comment %}
+              Loop through available payment methods and show their icons.
+            {% endcomment %}
+            {% unless shop.enabled_payment_types == empty %}
+              <h4 class="text-center">{{ 'layout.footer.accepted_payments' | t }}</h4>
+              <ul class="inline-list payment-icons">
+                {% for type in shop.enabled_payment_types %}
+                  <li>
+                    <span class="icon-fallback-text">
+                      <span class="icon icon-{{type}}" aria-hidden="true"></span>
+                      <span class="fallback-text">{{ type | replace: '_',' '}}</span>
+                    </span>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endunless %}
+            <a href="http://shopify.com/timber">Timber Theme Framework</a> by <a href="http://www.shopify.com?ref=Timber" title="Shopify.com">Shopify</a><br>
+            <small>{{ powered_by_link }}</small>
+          </div>
+        </div>
+
+        {% endcomment %}
+    </footer>
+    <!-- //site-footer -->
+  </div>
+
+
+
+  {{ 'fastclick.min.js' | asset_url | script_tag }}
+  {{ 'timber.js' | asset_url | script_tag }}
+
+  {% comment %}
+    Template-specific js
+  {% endcomment %}
+  <script>
+    {% if newHash %}
+      $(function() {
+        timber.updateHash('{{ newHash }}');
+      });
+    {% endif %}
+    {% if resetPassword %}
+      $(function() {
+        timber.resetPasswordSuccess();
+      });
+    {% endif %}
+  </script>
+
+  {% comment %}
+    Ajaxify your cart with this plugin.
+    Documentation:
+      - http://shopify.com/timber#ajax-cart
+  {% endcomment %}
+
+  {{ 'handlebars.min.js' | asset_url | script_tag }}
+  {% include 'ajax-cart-template' %}
+  {{ 'ajax-cart.js' | asset_url | script_tag }}
+  {{ 'main.js' | asset_url | script_tag }}
+  {% include 'iwish' with 'iwishfooter' %}
+
+  <script>
+    jQuery(function($) {
+      ajaxCart.init({
+        formSelector: '#AddToCartForm, .iwishItem > form',
+        cartContainer: '#CartContainer',
+        addToCartSelector: '#AddToCart, .iwishBuyBtn',
+        cartCountSelector: '#CartCount, .js-cart-count',
+        cartCostSelector: '#CartCost, .js-cart-cost',
+        moneyFormat: {{ shop.money_format | json }}
+      });
+    });
+
+    jQuery('body').on('ajaxCart.afterCartLoad', function(evt, cart) {
+      // Bind to 'ajaxCart.afterCartLoad' to run any javascript after the cart has loaded in the DOM
+      timber.CartDrawer.open();
+    });
+  </script>
+
+  {% comment %}
+    Script for custom cart attributes
+  {% endcomment %}
+  <script>
+  jQuery(function(){jQuery("body").on("click",'[name="checkout"], [name="goto_pp"], [name="goto_gc"]',function(){var e=!0,r="Please fill this out and you will be able to check out.";return jQuery('[name^="attributes"], [name="note"]').filter('.required, [required]').each(function(){jQuery(this).removeClass("error"),e&&""==jQuery(this).val()&&(e=!1,r=jQuery(this).attr("data-error")||r,jQuery(this).addClass("error"))}),e?void jQuery(this).submit():(alert(r),!1)})}),jQuery(window).unload(function(){var e=jQuery('form[action="/cart"]');if(e.size()){var r={type:"POST",url:"/cart/update.js",data:e.serialize(),dataType:"json",async:!1};jQuery.ajax(r)}});
+  </script>
+
+  {% include 'mailchimp-popup' %}
+  
+
+  {% comment %}{% include 'newsletter-popup' %}{% endcomment %}
+  
+</body>
+</html>

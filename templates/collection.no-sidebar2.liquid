@@ -1,0 +1,104 @@
+<!-- /templates/collection.liquid -->
+{% comment %}
+
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+
+{% endcomment %}
+
+{% paginate collection.products by settings.collections_items_number %}
+
+
+{% comment %}
+  Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+
+
+{% if collection.image %}
+  <img class="hero-img" sizes="(max-width: 1200px) 100vw, 1140px" srcset="{{ collection.image.src | img_url: 'large' }} 480w, {{ collection.image.src | img_url: 'grande' }} 600w, {{ collection.image.src | img_url: 'master' }} 1440w">
+{% endif %}
+
+<div class="grid">
+  {% if collection.description %}
+    <div class="
+      collection-description 
+      grid__item 
+
+      small--one-whole 
+      push--medium--one-tenth
+      push--large--one-tenth
+      push--x-large--one-tenth
+      push--x-large-up--one-tenth
+      
+      medium--nine-tenths
+      large--eight-tenths
+      x-large--three-quarters
+      x-large-up--three-quarters
+    ">
+      {{ collection.description }}
+    </div>
+  {% endif %}
+  <div class="clearfix"></div>
+  <div class="
+    grid__item
+
+    large--three-twelfths
+    x-large--three-twelfths
+    x-large-up--three-twelfths
+  ">
+  </div>
+
+
+{% comment %}
+  Use class grid-uniform to have evenly sized columns clear
+  each other properly at each breakpoint.
+{% endcomment %}
+<div class="grid-uniform collection-list">
+
+  {% comment %}
+    Loop through our products in the current collection.
+    See the snippet 'product-grid-item' for the layout.
+  {% endcomment %}
+  {% for product in collection.products %}
+
+    {% assign grid_item_width = 'medium--one-half large--one-third x-large--one-quarter x-large-up--one-quarter' %}
+    {% include 'product-grid-item' %}
+
+  {% else %}
+
+    {% if collection.handle == 'all' %}
+
+      {% comment %}
+        Add default products to help with onboarding for collections/all only
+      {% endcomment %}
+      {% unless emptyState %}
+        {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+        {% assign emptyState = true %}
+      {% endunless %}
+      {% include 'onboarding-empty-collection' %}
+
+    {% else %}
+
+      {% comment %}
+        If collection exists but is empty, display message
+      {% endcomment %}
+      <div class="grid__item">
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      </div>
+
+    {% endif %}
+
+  {% endfor %}
+
+  
+
+</div>
+
+{% if paginate.pages > 1 %}
+  <hr>
+  <div class="pagination">
+    {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+  </div>
+{% endif %}
+
+{% endpaginate %}

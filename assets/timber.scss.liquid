@@ -1,0 +1,1183 @@
+/*============================================================================
+  Shopify Timber
+  Copyright 2015 Shopify Inc.
+  Author Carson Shold @cshold
+  Built with Sass - http://sass-lang.com/
+
+  Some things to know about this file:
+    - Sass is compiled on Shopify's server so you don't need to convert it to CSS yourself
+    - The output CSS is compressed and comments are removed
+    - You cannot use @imports in this file
+        * Use grunt or gulp tasks to enable @imports - https://github.com/Shopify/shopify-css-import
+    - Helpers variables, mixins, and starter classes are provided. Change as needed.
+    - The file is prepped with a CSS reset
+    - The font icons are prepared using https://icomoon.io/app
+==============================================================================*/
+
+/*============================================================================
+  Table of Contents
+
+  #Breakpoint and Grid Variables
+  #General Variables
+  #Sass Mixins
+  #Normalize
+  #Grid Setup
+  #Basic Styles
+  #Helper Classes
+  #Typography
+  #Rich Text Editor
+  #Links and Buttons
+  #Lists
+  #Tables
+  #Reponsive Tables
+  #OOCSS Media Object
+  #Images and Iframes
+  #Forms
+  #Icons
+  #Pagination
+  #Site Header
+  #Site Nav and Dropdowns
+  #Mobile Nav
+  #Drawers
+  #Site Footer
+  #Product and Collection Grids
+  #Collection Filters
+  #Breadcrumbs
+  #Product Page
+  #Notes and Form Feedback
+  #Cart Page
+  #Ajax Cart Styles
+==============================================================================*/
+
+/*============================================================================
+  #Breakpoint and Grid Variables
+==============================================================================*/
+$viewportIncrement: 1px;
+
+$small: 480px;
+$medium: 768px;
+$large: 1024px;
+$xLarge: 1240px;
+
+$postSmall: $small + $viewportIncrement;
+$preMedium: $medium - $viewportIncrement;
+$postMedium: $medium + $viewportIncrement;
+$postLarge: $large + $viewportIncrement;
+$preXLarge: $xLarge - $viewportIncrement;
+
+/*================ The following are dependencies of csswizardry grid ================*/
+$breakpoints: (
+  'small' '(max-width: #{$small})',
+  'medium' '(min-width: #{$postSmall}) and (max-width: #{$medium})',
+  'medium-down' '(max-width: #{$medium})',
+  'large' '(min-width: #{$postMedium}) and (max-width: #{$large})',
+  'x-large' '(min-width: #{$postLarge}) and (max-width: #{$xLarge})',
+  'x-large-up' '(min-width: #{$xLarge})'
+);
+$breakpoint-has-widths: ('small', 'medium', 'medium-down', 'large', 'x-large', 'x-large-up');
+$breakpoint-has-push:   (         'medium', 'medium-down', 'large', 'x-large', 'x-large-up');
+$breakpoint-has-pull:   (         'medium', 'medium-down', 'large', 'x-large', 'x-large-up');
+
+/*============================================================================
+  #General Variables
+==============================================================================*/
+
+// Backgrounds
+$colorBody: unquote("{{ settings.color_body_bg }}");
+
+// Timber Colors
+$colorPrimary: unquote("{{ settings.color_primary }}");
+$colorPrimaryLight: unquote("lighten({{ settings.color_primary }}, 50%)");
+$colorPrimaryDark: unquote("darken({{ settings.color_primary }}, 5%)");
+$colorPrimaryDarker: unquote("darken({{ settings.color_primary }}, 50%)");
+$colorMain: #{"{{settings.color_accent}}"};
+$colorMainLight: unquote("lighten({{settings.color_accent}}, 20%)");
+$colorMainDark: unquote("darken({{settings.color_accent}}, 8%)");
+$colorMainDarker: unquote("darken({{settings.color_accent}}, 20%)");
+$colorContrast: $colorBody;
+
+// Button colors
+$colorBtnPrimary: $colorMain;
+$colorBtnBorder: $colorMainDark;
+$colorBtnPrimaryHover: $colorMainLight;
+$colorBtnPrimaryActive: $colorMainLight;
+$colorBtnPrimaryText: $colorMainDarker;
+
+$colorBtnSecondary: $colorMain;
+$colorBtnSecondaryBorder: transparent;
+$colorBtnSecondaryHover: $colorMainLight;
+$colorBtnSecondaryActive: $colorMainLight;
+$colorBtnSecondaryText: $colorMainDarker;
+
+// Text link colors
+$colorLink: $colorPrimary;
+$colorLinkHover: $colorMain;
+
+// Text colors
+$colorTextBody: unquote("{{ settings.color_body_text }}");
+
+// Border colors
+$colorBorder: unquote("{{ settings.color_borders }}");
+
+// Nav and dropdown link background
+$colorNavText: $colorTextBody;
+$colorNavHover: $colorMain;
+$colorNavDropdownBg: $colorMainLight;
+$colorNavHoverDropdownBg: $colorMain;
+
+// Mobile Nav
+$sidePaddingsMobileNav: 25px;
+$colorMobileNavHover: $colorMain;
+$colorMobileNavDropdownBg: #878787;
+
+// Site Footer
+$colorFooterBg: unquote("{{ settings.color_footer_bg }}");
+$colorMobileFooterBg: unquote("{{ settings.color_mobile_footer_bg }}");
+$colorFooterText: unquote("{{ settings.color_footer_text }}");
+$colorFooterHover: unquote("{{ settings.color_footer_hover }}");
+$colorFooterBorder: unquote("{{ settings.color_footer_border }}");
+$colorFooterHeaders: unquote("{{ settings.color_footer_headers }}");
+$colorFooterInfoText: unquote("{{ settings.color_footer_info_text }}");
+
+// Helper colors
+$disabledGrey: #f6f6f6;
+$disabledBorder: darken($disabledGrey, 25%);
+$errorRed: #d02e2e;
+$errorRedBg: #fff6f6;
+$successGreen: #56ad6a;
+$successGreenBg: #ecfef0;
+
+// Drawers
+$drawerNavWidth: 240px;
+$drawerCartWidth: 240px;
+$colorDrawers: unquote("{{ settings.drawers_background_color }}");
+$colorDrawersClose: unquote("{{ settings.drawers_close_background_color }}");
+$colorDrawerBorder: $colorMain;
+$colorDrawerText: unquote("{{ settings.drawers_text_color }}");
+$drawerTransition: all unquote("{{ settings.drawers_transition_speed }}") cubic-bezier(0.46, 0.01, 0.32, 1);
+
+// Lightboxes
+$colorLightboxesOverlay: unquote("{{ settings.lightboxes_overlay_color }}");
+$colorLightboxesCloseBackground: unquote("{{ settings.lightboxes_close_background_color }}");
+$colorLightboxesCloseText: unquote("{{ settings.lightboxes_close_text_color }}");
+$lightboxesOverlayOpacity: unquote("{{ settings.lightboxes_overlay_opacity }}");
+$colorLightboxesOverlayTransparent: unquote("rgba({{ settings.lightboxes_overlay_color }}, {{ settings.lightboxes_overlay_opacity }})");
+
+// Sizing variables
+$gutter: 30px;
+$siteWidth: 1140px + $gutter * 2;
+$gridGutter: 12px; // can be a %, but nested grids will have smaller margins because of it
+$radius: 6px;
+
+// Z-index
+$zindexNavDropdowns: 5;
+$zindexDrawer: 10;
+$zindexBuyNowBar: 20;
+$zindexLightboxSection: 2000;
+
+/*================ Typography ================*/
+
+$secondaryFontStack: 'Open Sans', Arial, sans-serif;
+$secondaryFontWeight: normal;
+
+$bodyFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$baseFontSize: 16px; // Henseforth known as 1em
+
+$socialIconFontStack: 'icons';
+
+
+/*============================================================================
+  #Sass Mixins
+==============================================================================*/
+.clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both; }
+  *zoom: 1;
+}
+
+@mixin clearfix() {
+  &:after {
+    content: '';
+    display: table;
+    clear: both; }
+  *zoom: 1;
+}
+
+@mixin word-wrap() {
+  word-break:      break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens:    auto;
+  hyphens:         auto;
+}
+
+/*============================================================================
+  Prefixer mixin for generating vendor prefixes:
+    - Based on https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss
+    - Usage:
+
+      // Input:
+      .element {
+        @include prefixer(transform, scale(1), ms webkit spec);
+      }
+
+      // Output:
+      .element {
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+==============================================================================*/
+
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+@mixin user-select($value: none) {
+  @include prefixer(user-select, $value, webkit moz ms spec);
+}
+
+@mixin backface($visibility: hidden) {
+  @include prefixer(backface-visibility, $visibility, webkit spec);
+}
+
+@function em($target, $context: $baseFontSize) {
+  @if $target == 0 {
+    @return 0;
+  }
+  @return $target / $context + 0em;
+}
+
+@function color-control($color) {
+  @if (lightness( $color ) > 40) {
+    @return #000;
+  }
+  @else {
+    @return #fff;
+  }
+}
+
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    @content;
+  }
+}
+
+/*============================================================================
+  Dependency-free breakpoint mixin
+    - Based on http://blog.grayghostvisuals.com/sass/sass-media-query-mixin/
+    - Usage docs: http://shopify.github.io/Timber/#sass-mixins
+==============================================================================*/
+$min: min-width;
+$max: max-width;
+@mixin at-query ($constraint_, $viewport1_, $viewport2_:null) {
+ $constraint: $constraint_; $viewport1: $viewport1_; $viewport2: $viewport2_;
+  @if type-of($constraint_) == number {
+    $viewport1 : $constraint_; $viewport2 : $viewport1_; $constraint : null;
+  }
+  @if $constraint == $min {
+    @media screen and ($min: $viewport1) {
+      @content;
+    }
+  } @else if $constraint == $max {
+    @media screen and ($max: $viewport1) {
+      @content;
+    }
+  } @else {
+    @media screen and ($min: $viewport1) and ($max: $viewport2) {
+      @content;
+    }
+  }
+}
+
+/*============================================================================
+  #Normalize
+==============================================================================*/
+*, input, :before, :after {
+  box-sizing: border-box;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+  display: block;
+}
+
+audio, canvas, progress, video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*============================================================================
+  #Basic Styles
+==============================================================================*/
+html {
+  background-color: $colorFooterBg;
+}
+
+body {
+  background-color: $colorBody;
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+.wrapper {
+  @include clearfix();
+  max-width: $siteWidth;
+  margin: 0 auto;
+  padding: 0 ($gutter / 2);
+
+  @include at-query ($min, $small) {
+    padding: 0 $gutter;
+  }
+}
+
+.main-content {
+  display: block;
+  margin-top: $gutter;
+  padding-bottom: $gutter * 2;
+}
+
+/*============================================================================
+  #Helper Classes
+==============================================================================*/
+.is-transitioning {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.display-table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.display-table-cell {
+  display: table-cell;
+  vertical-align: middle;
+  float: none;
+}
+
+@include at-query ($min, $large) {
+  .large--display-table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .large--display-table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+/*============================================================================
+  #Typography
+==============================================================================*/
+body,
+input,
+textarea,
+button,
+select {
+  font-family: $bodyFontStack;
+  color: $colorTextBody;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-size: $baseFontSize;
+  line-height: 1.2;
+}
+
+input,
+textarea,
+button,
+select {
+  font-size: em(14px);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+  color: $colorPrimaryDark;
+  font-family: $secondaryFontStack;
+  font-weight: $secondaryFontWeight;
+  margin: 1em 0 0.5em;
+  line-height: 1.1;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: inherit;
+  }
+}
+
+/*================ Use em() Sass function to declare font-size ================*/
+h1 {
+  margin-bottom: .4em;
+  font-size: em(48px);
+
+  @include at-query($max, $medium) {
+    font-size: em(38px);
+  }
+}
+
+h2 {
+  margin-bottom: .4em;
+  font-size: em(40px);
+
+  @include at-query($max, $medium) {
+    font-size: em(34px);
+  }
+}
+
+h3 {
+  font-size: em(32px);
+
+  @include at-query($max, $medium) {
+    font-size: em(28px);
+  }
+}
+
+h4 {
+  font-size: em(24px);
+}
+
+h5 {
+  text-transform: uppercase;
+  font-size: em(20px);
+  font-weight: 300;
+}
+
+h6 {
+  text-transform: uppercase;
+  font-size: em(18px);
+  font-weight: 300;
+}
+
+
+.h1 { @extend h1; }
+.h2 { @extend h2; }
+.h3 { @extend h3; }
+.h4 { @extend h4; }
+.h5 { @extend h5; }
+.h6 { @extend h6; }
+
+p {
+  margin: 0 0 ($gutter / 2) 0;
+
+  img {
+    margin: 0;
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+small {
+  font-size: 0.9em;
+}
+
+sup, sub {
+  position: relative;
+  font-size: 60%;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.5em;
+}
+
+/*================ Blockquotes ================*/
+blockquote {
+  font-size: 1.125em;
+  line-height: 1.45;
+  font-style: italic;
+  margin: 0 0 $gutter;
+  padding: ($gutter / 2) $gutter;
+  border-left: 1px solid $colorBorder;
+
+  p {
+    margin-bottom: 0;
+
+    & + cite {
+      margin-top: $gutter / 2;
+    }
+  }
+
+  cite {
+    display: block;
+    font-size: 0.75em;
+
+    &:before {
+      content: '\2014 \0020';
+    }
+  }
+}
+
+/*================ Code ================*/
+code, pre {
+  background-color: #faf7f5;
+  font-family: Consolas,monospace;
+  font-size: 1em;
+  border: 0 none;
+  padding: 0 2px;
+  color: #51ab62;
+}
+
+pre {
+  overflow: auto;
+  padding: $gutter / 2;
+  margin: 0 0 $gutter;
+}
+
+/*================ Horizontal Rules ================*/
+hr {
+  clear: both;
+  border-top: solid $colorBorder;
+  border-width: 1px 0 0;
+  margin: $gutter 0;
+  height: 0;
+
+  &.hr--small {
+    margin: ($gutter / 2) 0;
+  }
+
+  &.hr--clear {
+    border-top-color: transparent;
+  }
+}
+
+/*================ Section Headers ================*/
+.section-header {
+  margin-bottom: $gutter / 1.5;
+}
+
+@include at-query ($min, $large) {
+  .section-header {
+    display: table;
+    width: 100%;
+  }
+
+  .section-header__title {
+    margin-bottom: $gutter / 2.5;
+  }
+
+  .section-header__left {
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 0;
+
+    h1, h2, h3, h4,
+    .h1, .h2, .h3, .h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .section-header__right {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    width: 335px;
+
+    @include at-query ($max, $medium) {
+      margin-bottom: $gutter;
+    }
+  }
+}
+
+.section-header__right {
+  .form-horizontal,
+  .collection-view {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  @include at-query ($min, $postSmall) {
+    label + select,
+    .collection-view {
+      margin-left: $gutter / 2;
+    }
+  }
+}
+
+.collection-view {
+  display: inline-block;
+  border: 1px solid $colorBorder;
+  border-radius: $radius;
+  padding: 0 5px;
+  height: 37px; // same as form elements
+  overflow: hidden;
+
+  /*================ Only show on larger screens ================*/
+  @include at-query ($min, $large) {
+    display: inline-block;
+  }
+}
+
+.change-view {
+  display: block;
+  background: none;
+  border: 0 none;
+  float: left;
+  padding: 10px 8px;
+  color: $colorBorder;
+  line-height: 1;
+
+  &:hover,
+  &:focus {
+    color: $colorPrimary;
+  }
+}
+
+.change-view--active {
+  cursor: default;
+  color: $colorPrimary;
+}
+
+
+/*============================================================================
+  #Links and Buttons
+==============================================================================*/
+a,
+.text-link {
+  transition: color .2s;
+  color: $colorLink;
+  text-decoration: none;
+  background: transparent;
+}
+
+a:hover,
+a:focus {
+  color: $colorLinkHover;
+}
+
+button {
+  overflow: visible;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/*================ Force an input/button to look like a text link ================*/
+.text-link {
+  display: inline;
+  border: 0 none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/*============================================================================
+  #Lists
+==============================================================================*/
+ul, ol {
+  margin: 0 0 ($gutter / 2) 20px;
+  padding: 0;
+}
+
+ol { list-style: decimal; }
+ul ul, ul ol,
+ol ol, ol ul { margin: 4px 0 5px 20px; }
+li { margin-bottom: 0.25em; }
+
+ul.square { list-style: square outside; }
+ul.disc { list-style: disc outside; }
+ol.alpha { list-style: lower-alpha outside; }
+
+.no-bullets {
+  list-style: none outside;
+  margin-left: 0;
+}
+
+.inline-list {
+  margin-left: 0;
+
+  li {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
+
+/*============================================================================
+  #Tables
+==============================================================================*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.full {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.table-wrap {
+  max-width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+th {
+  font-weight: bold;
+}
+
+th, td {
+  text-align: left;
+  padding: $gutter / 2;
+  border: 1px solid $colorBorder;
+}
+
+/*============================================================================
+  Responsive tables, defined with .table--responsive on table element.
+  Only defined for IE9+
+==============================================================================*/
+.table--responsive {
+  @include at-query($max, $medium) {
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: block;
+    }
+
+    // IE9 table layout fixes
+    tr,
+    td {
+      float: left;
+      clear: both;
+      width: 100%;
+    }
+
+    th,
+    td {
+      display: block;
+      text-align: right;
+      padding: 15px;
+    }
+
+    td:before {
+      color: $colorMainDark;
+      content: attr(data-label);
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      padding-right: 10px;
+    }
+
+    &.cart__table {
+      img {
+        margin: 0 auto;
+      }
+
+      .js-qty {
+        float: right;
+      }
+    }
+  }
+}
+
+@include at-query($max, $small) {
+  .table--small-hide {
+    display: none !important;
+  }
+
+  .table__section + .table__section {
+    position: relative;
+    margin-top: 10px;
+    padding-top: 15px;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 15px;
+      right: 15px;
+      border-bottom: 1px solid $colorBorder;
+    }
+  }
+}
+
+
+/*============================================================================
+  #OOCSS Media Object
+    - http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+==============================================================================*/
+.media,
+.media-flex {
+  overflow: hidden;
+  _overflow: visible;
+  zoom: 1;
+}
+
+.media-img {
+  float: left;
+  margin-right: $gutter;
+}
+
+.media-img-right {
+  float: right;
+  margin-left: $gutter;
+}
+
+.media-img img,
+.media-img-right img {
+  display: block;
+}
+
+
+/*============================================================================
+  #Images and Iframes
+==============================================================================*/
+img {
+  border: 0 none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+img.auto,
+.grid__item img,
+.grid__item iframe {
+  max-width: 100%;
+}
+
+.video-wrapper {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  height: auto;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/*============================================================================
+  #Icons
+==============================================================================*/
+.icon-fallback-text .icon {
+  display: none;
+
+  .supports-fontface & {
+    display: inline-block;
+  }
+}
+
+/*============================================================================
+  A generic way to visually hide content while
+  remaining accessible to screen readers (h5bp.com)
+==============================================================================*/
+.supports-fontface .icon-fallback-text .fallback-text {
+  @extend .visually-hidden;
+}
+
+.icon:before {
+  display: none;
+}
+
+.supports-fontface .icon:before {
+  display: inline;
+  font-family: $socialIconFontStack;
+  text-decoration: none;
+  speak: none; // future fallback, limited in effect currently
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*================ Icon mapping ================*/
+
+.icon-arrow-circle-left:before {
+	content: "\e60c";
+}
+.icon-arrow-circle-right:before {
+	content: "\e60d";
+}
+.icon-facebook:before {
+	content: "\e608";
+}
+.icon-instagram:before {
+	content: "\e609";
+}
+.icon-pinterest:before {
+	content: "\e60a";
+}
+.icon-twitter:before {
+	content: "\e60b";
+}
+.icon-arrow-down:before {
+	content: "\e607";
+}
+.icon-cart:before {
+	content: "\e600";
+}
+.icon-hamburger:before {
+	content: "\e601";
+}
+.icon-minus:before {
+	content: "\e602";
+}
+.icon-plus:before {
+	content: "\e605";
+}
+.icon-x:before {
+	content: "\e606";
+}
+.icon-grid-view:before {
+	content: "\e603";
+}
+.icon-list-view:before {
+	content: "\e604";
+}
+.icon-american_express:before {
+	content: "\41";
+}
+.icon-bitcoin:before {
+	content: "\42";
+}
+.icon-cirrus:before {
+	content: "\43";
+}
+.icon-discover:before {
+	content: "\44";
+}
+.icon-fancy:before {
+	content: "\46";
+}
+.icon-google_wallet:before {
+	content: "\47";
+}
+.icon-interac:before {
+	content: "\49";
+}
+.icon-jcb:before {
+	content: "\4a";
+}
+.icon-master:before {
+	content: "\4d";
+}
+.icon-paypal:before {
+	content: "\50";
+}
+.icon-stripe:before {
+	content: "\53";
+}
+.icon-visa:before {
+	content: "\56";
+}
+.icon-diners_club:before {
+	content: "\63";
+}
+.icon-dankort:before {
+	content: "\64";
+}
+.icon-google:before {
+	content: "\67";
+}
+.icon-maestro:before {
+	content: "\6d";
+}
+.icon-search:before {
+	content: "\73";
+}
+.icon-tumblr:before {
+	content: "\74";
+}
+.icon-vimeo:before {
+	content: "\76";
+}
+.icon-youtube:before {
+	content: "\79";
+}
+.icon-rss:before {
+	content: "\72";
+}
+
+.payment-icons {
+  @include user-select(none);
+  cursor: default;
+
+  li {
+    margin: 0 ($gutter / 4) ($gutter / 4);
+    color: unquote("{{ settings.color_footer_social_link }}");
+    cursor: default;
+  }
+
+  .icon {
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  .fallback-text {
+    text-transform: capitalize;
+  }
+}
+
+/*============================================================================
+  #Collection Filters
+==============================================================================*/
+.filter--active {
+  font-weight: bold;
+}
+
+/*============================================================================
+  #Cart Page
+==============================================================================*/
+
+.cart-attribute__field {
+  &.is_hidden {
+    display: none;
+  }
+}
+
+/*============================================================================
+  #Notes and Form Feedback
+==============================================================================*/
+.note,
+.errors {
+  border-radius: $radius;
+  padding: 6px 12px;
+  margin-bottom: $gutter / 2;
+  border: 1px solid transparent;
+  font-size: 0.9em;
+  text-align: left;
+
+  ul,
+  ol {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.note {
+  border-color: $colorBorder;
+}
+
+.errors {
+  ul {
+    list-style: disc outside;
+    margin-left: 20px;
+  }
+}
+
+.form-success {
+  color: $successGreen;
+  background-color: $successGreenBg;
+  border-color: $successGreen;
+
+  a {
+    color: $successGreen;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.form-error,
+.errors {
+  color: $errorRed;
+  background-color: $errorRedBg;
+  border-color: $errorRed;
+
+  a {
+    color: $errorRed;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+@include at-query ($min, $large) {
+  .cart__row--table-large {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+
+    .grid__item {
+      display: table-cell;
+      vertical-align: middle;
+      float: none;
+    }
+  }
+}

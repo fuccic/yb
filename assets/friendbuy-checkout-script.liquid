@@ -1,0 +1,42 @@
+<script>
+    window['friendbuy'] = window['friendbuy'] || [];
+    window['friendbuy'].push(['site', 'site-c07bb304-www.yellowberrycompany.com']);
+    window['friendbuy'].push(['track', 'customer',
+        {
+            id: '{{ customer.id }}', //INSERT CUSTOMER ID PARAMETER
+            email: '{{ customer.email }}' //INSERT CUSTOMER EMAIL PARAMETER
+        }
+    ]);
+    (function (f, r, n, d, b, y) {
+        b = f.createElement(r), y = f.getElementsByTagName(r)[0];b.async = 1;b.src = n;y.parentNode.insertBefore(b, y);
+    })(document, 'script', '//djnf6e5yyirys.cloudfront.net/js/friendbuy.min.js');
+</script>
+
+<script>
+    window['friendbuy'] = window['friendbuy'] || [];
+    window['friendbuy'].push(['track', 'order',
+      {
+          id: '{{ order.order_number }}', //INPUT ORDER ID
+          amount: '{{ order.subtotal_price | money_without_currency }}', //INPUT ORDER AMOUNT
+          //new_customer: false, //OPTIONAL, true if this is the customer's first purchase
+          email: '{{ customer.email }}' //INPUT EMAIL
+      }
+    ]);
+    window['friendbuy'].push(['track', 'products',
+      [
+        {% for line_item in order.line_items %}
+          {
+              sku: '{{ line_item.sku }}', //REPLACE WITH YOUR PRODUCT SKU,
+              price: '{{ line_item.line_price | money_without_currency }}', //PUT YOUR PRODUCT PRICE,
+              quantity: '{{ line_item.quantity }}' //REPLACE WITH HOW MANY WERE BOUGHT, IF APPLICABLE
+          },
+        {% endfor %}
+      ]
+    ]);
+</script>
+
+<script>
+    window['friendbuy'] = window['friendbuy'] || [];
+    window['friendbuy'].push(['widget', "bQw-e4r"]);
+</script>
+<div class="friendbuy-bQw-e4r"></div>

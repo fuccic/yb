@@ -1,0 +1,57 @@
+{% unless settings.cta_box_hide %}
+  <section class="cta-box">
+    {% for index in (1..4) %}
+      {% assign cta_box_tag_left = "{{" %}
+      {% assign cta_box_tag_right = "}}" %}
+      {% capture cta_box_is_bg %}cta_box_use_bg_{{index}}{% endcapture %}
+      {% capture cta_box_bg_url %}cta_box_bg_{{index}}.jpg{% endcapture %}
+      {% capture cta_box_header %}cta_box_header_{{index}}{% endcapture %}
+      {% capture cta_box_text %}cta_box_text_{{index}}{% endcapture %}
+      {% capture cta_box_button_text %}cta_box_button_text_{{index}}{% endcapture %}
+      {% capture cta_box_button_url %}cta_box_button_url_{{index}}{% endcapture %}
+      {% capture cta_box_center %}cta_box_center_{{index}}{% endcapture %}
+
+      {% if index == 1 or index == 3 %}
+        <div class="cta-box__row">
+      {% endif %}
+
+        <div
+          class="
+            cta-box__cell
+            {% if settings[cta_box_center] %}cta-box__cell--wider-centered{% endif %}
+            {% if index == 1 %}cta-box__cell--bg-a{% endif %}
+            {% if index == 2 %}cta-box__cell--bg-b{% endif %}
+            {% if index == 3 %}cta-box__cell--bg-c{% endif %}
+            {% if index == 4 %}cta-box__cell--bg-d{% endif %}
+
+            {%
+              if settings[cta_box_header] == blank and
+              settings[cta_box_text] == blank and
+              (settings[cta_box_button_text] == blank or settings[cta_box_button_url] == blank)
+            %}cta-box__cell--empty{% endif %}
+          "
+
+          {% if settings[cta_box_is_bg] %}
+            style="background-image: url({{ cta_box_bg_url | asset_url }})"
+          {% endif %}
+        >
+          {% if settings[cta_box_header] != blank %}
+            <h2 class="cta-box__header">{{ settings[cta_box_header] | replace: cta_box_tag_left, '<span>' | replace: cta_box_tag_right, '<span>' }}</h2>
+          {% endif %}
+
+          {% if settings[cta_box_text] != blank %}
+            <div class="cta-box__body">{{ settings[cta_box_text] }}</div>
+          {% endif %}
+
+          {% if settings[cta_box_button_text] != blank and settings[cta_box_button_url] != blank %}
+            <a href="{{ settings[cta_box_button_url] }}" class="cta-box__btn btn btn--secondary">{{ settings[cta_box_button_text] }}</a>
+          {% endif %}
+        </div>
+
+      {% if index == 2 or index == 4 %}
+        </div>
+      {% endif %}
+
+    {% endfor %}
+  </section>
+{% endunless %}

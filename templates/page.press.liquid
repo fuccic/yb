@@ -1,0 +1,21 @@
+<!-- /templates/page.liquid -->
+
+{% include 'breadcrumb' %}
+
+<ul class="press-list">
+  {% for article in blogs[settings.press_page_blog].articles %}
+    <li class="press-list__item">
+        {% if article.content contains "<img" and article.content contains "<a" %}
+            {% assign href = article.content | split: 'href="' %}
+            {% assign href = href[1] | split: '"' | first %}
+            {% assign blankList = article.content | split: 'target="' %}
+            {% assign src = article.content | split: 'src="' %}
+            {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn'; | replace: 'http:http://';, 'http://'; | remove: 'https:' %}
+
+            <a class="press-list__link" href="{{ href }}" {% if blankList.size > 1 or settings.press_page_target_blank_links %}target="_blank"{% endif %}>
+              <img class="press-list__img" src="{{ src }}" alt="{{ article.title }}">
+            </a>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>

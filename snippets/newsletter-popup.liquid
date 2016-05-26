@@ -1,0 +1,58 @@
+{% if settings.newsletter_popup %}   
+  
+  {{ 'jquery.fancybox.scss.css' | asset_url | stylesheet_tag }}
+
+  <a id="newsletter" href="#target"></a>
+  <div style="display: none;">
+    <div id="target" class="newsletter--popup">
+      {% include 'newsletter' %}
+    </div>
+  </div>    
+
+  {{ 'jquery.cookie.js' | asset_url | script_tag }}
+  {{ 'jquery.fancybox.js' | asset_url | script_tag }}
+
+  <script type="text/javascript">
+  $( document ).ready(function() {
+    function openNewsletterPopup() {
+      {% if settings.newsletter_popup_page != blank %}
+        $.get("/pages/{{ settings.newsletter_popup_page }}.json", function(data) {
+        $("#target").prepend(data["page"]["body_html"]);
+        });
+      {% endif %}    
+      setTimeout( function() {
+        $('#newsletter').fancybox({
+          maxWidth: 600,
+          padding: [20, 15, 20, 15],
+          tpl : {
+            closeBtn : '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>'
+          }
+        });
+        $('#newsletter').trigger('click'); 
+      }, 
+      {% if settings.newsletter_popup_seconds != blank %}{{ settings.newsletter_popup_seconds }}{% else %}2{% endif %}*1000);
+
+      //Override our form submission to close the fancybox and then submit the form!
+      $('#mailchimp-popup input[type="submit"]').on('click', function(e){
+        e.preventDefault();
+        $.fancybox.close();
+        $(this).parent().submit();
+      });
+    }
+
+    $(function() {
+      var popup = $.cookie('yb_popup');
+      var cookie_enabled = true;
+
+      if (cookie_enabled && popup == 'open') {
+          return false;
+      } else {
+        openNewsletterPopup();
+      }
+      if (cookie_enabled) {
+        $.cookie('yb_popup', 'open', { expires: {{ settings.newsletter_popup_days }} });
+      }
+    });
+  });
+  </script>
+{% endif %}

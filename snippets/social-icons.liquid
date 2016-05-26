@@ -1,0 +1,48 @@
+{% assign social_icons_all = '' %}
+
+{%
+  if settings.social_sharing_facebook_url != blank and
+  settings.social_sharing_pinterest_url != blank and
+  settings.social_sharing_instagram_url != blank and
+  settings.social_sharing_twitter_url != blank
+%}
+  {% assign social_icons_all = 'social-icons--all' %}
+{% endif %}
+
+<ul class="social-icons {{ social_icons_all }}">
+  {% if settings.social_sharing_facebook_url != blank %}
+    <li class="social-icons__item">
+      <a class="social-icons__link icon-fallback-text" href="{{ settings.social_sharing_facebook_url }}" title="{{ shop.name }} on Facebook" {% if settings.social_sharing_open_new_window %}target="_blank"{% endif %}>
+        <span class="social-icons__icon icon icon-facebook" aria-hidden="true"></span>
+        <span class="fallback-text">Facebook</span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if settings.social_sharing_pinterest_url != blank %}
+    <li class="social-icons__item">
+      <a class="social-icons__link icon-fallback-text" href="{{ settings.social_sharing_pinterest_url }}" title="{{ shop.name }} on Pinterest" {% if settings.social_sharing_open_new_window %}target="_blank"{% endif %}>
+        <span class="social-icons__icon icon icon-pinterest" aria-hidden="true"></span>
+        <span class="fallback-text">Pinterest</span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if settings.social_sharing_instagram_url != blank %}
+    <li class="social-icons__item">
+      <a class="social-icons__link icon-fallback-text" href="{{ settings.social_sharing_instagram_url }}" title="{{ shop.name }} on Instagram" {% if settings.social_sharing_open_new_window %}target="_blank"{% endif %}>
+        <span class="social-icons__icon icon icon-instagram" aria-hidden="true"></span>
+        <span class="fallback-text">Instagram</span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if settings.social_sharing_twitter_url != blank %}
+    <li class="social-icons__item">
+      <a class="social-icons__link icon-fallback-text" href="{{ settings.social_sharing_twitter_url }}" title="{{ shop.name }} on Twitter">
+        <span class="social-icons__icon icon icon-twitter" aria-hidden="true"></span>
+        <span class="fallback-text">Twitter</span>
+      </a>
+    </li>
+  {% endif %}
+</ul>
